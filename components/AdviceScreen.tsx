@@ -61,8 +61,8 @@ export function AdviceScreen({ setCurrentScreen }: AdviceScreenProps) {
   const [showResults, setShowResults] = useState(false);
 
   // Refs for maintaining focus
-  const textareaARef = useRef<HTMLTextAreaElement>(null);
-  const textareaBRef = useRef<HTMLTextAreaElement>(null);
+  const textareaARef = useRef<HTMLTextAreaElement>(null) as React.RefObject<HTMLTextAreaElement>;
+  const textareaBRef = useRef<HTMLTextAreaElement>(null) as React.RefObject<HTMLTextAreaElement>;
   const chatARef = useRef<HTMLDivElement>(null);
   const chatBRef = useRef<HTMLDivElement>(null);
 
@@ -194,26 +194,26 @@ export function AdviceScreen({ setCurrentScreen }: AdviceScreenProps) {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
-      className="flex items-center gap-2 p-3 bg-white/5 rounded-2xl mr-4 max-w-[80%]"
+      className="flex items-center gap-2 p-3 bg-[#EACBD2]/40 rounded-2xl mr-4 max-w-[80%]"
     >
       <div className="flex gap-1">
         <motion.div
-          className="w-2 h-2 bg-white/60 rounded-full"
+          className="w-2 h-2 bg-[#82667F]/60 rounded-full"
           animate={{ scale: [1, 1.2, 1] }}
           transition={{ duration: 0.6, repeat: Infinity, delay: 0 }}
         />
         <motion.div
-          className="w-2 h-2 bg-white/60 rounded-full"
+          className="w-2 h-2 bg-[#82667F]/60 rounded-full"
           animate={{ scale: [1, 1.2, 1] }}
           transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }}
         />
         <motion.div
-          className="w-2 h-2 bg-white/60 rounded-full"
+          className="w-2 h-2 bg-[#82667F]/60 rounded-full"
           animate={{ scale: [1, 1.2, 1] }}
           transition={{ duration: 0.6, repeat: Infinity, delay: 0.4 }}
         />
       </div>
-      <span className="text-xs text-white/60">thinking...</span>
+      <span className="text-xs text-[#82667F]/60 font-medium">thinking...</span>
     </motion.div>
   );
 
@@ -234,47 +234,47 @@ export function AdviceScreen({ setCurrentScreen }: AdviceScreenProps) {
     textareaRef: React.RefObject<HTMLTextAreaElement>,
     chatRef: React.RefObject<HTMLDivElement>
   }) => (
-    <div className="bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-lg flex flex-col h-80">
+    <div className="bg-[#EACBD2]/50 backdrop-blur-md rounded-2xl border border-[#DFAEB4]/40 shadow-lg flex flex-col h-80">
       {/* Chat Header */}
-      <div className="p-4 border-b border-white/20">
+      <div className="p-4 border-b border-[#DFAEB4]/30">
         <div className="flex items-center justify-between">
-          <h3 className="text-white">{chat.name}</h3>
+          <h3 className="text-[#82667F] font-medium">{chat.name}</h3>
           {!showResults && (
             <div className="flex gap-1">
               <button
                 onClick={() => handleGuess(advisor, 'ai')}
                 className={`p-2 rounded-lg border transition-all ${
                   guesses[advisor] === 'ai'
-                    ? 'bg-white/20 border-white/40'
-                    : 'bg-white/5 border-white/20'
+                    ? 'bg-[#DD9AC2]/30 border-[#B486AB]/40'
+                    : 'bg-[#EACBD2]/30 border-[#DFAEB4]/30'
                 }`}
               >
-                <Bot className="w-4 h-4 text-white/80" />
+                <Bot className="w-4 h-4 text-[#82667F]" />
               </button>
               <button
                 onClick={() => handleGuess(advisor, 'human')}
                 className={`p-2 rounded-lg border transition-all ${
                   guesses[advisor] === 'human'
-                    ? 'bg-white/20 border-white/40'
-                    : 'bg-white/5 border-white/20'
+                    ? 'bg-[#DD9AC2]/30 border-[#B486AB]/40'
+                    : 'bg-[#EACBD2]/30 border-[#DFAEB4]/30'
                 }`}
               >
-                <User className="w-4 h-4 text-white/80" />
+                <User className="w-4 h-4 text-[#82667F]" />
               </button>
             </div>
           )}
           {showResults && (
             <div className="flex items-center gap-2">
               {chat.source === 'ai' ? (
-                <Bot className="w-5 h-5 text-blue-300" />
+                <Bot className="w-5 h-5 text-[#DD9AC2]" />
               ) : (
-                <User className="w-5 h-5 text-green-300" />
+                <User className="w-5 h-5 text-[#B486AB]" />
               )}
-              <span className="text-xs text-white/80">
+              <span className="text-xs text-[#82667F]/80 font-medium">
                 {chat.source === 'ai' ? 'AI' : 'Human'}
               </span>
               {guesses[advisor] === chat.source && (
-                <Badge className="bg-green-500/20 text-green-300 border-green-500/30 text-xs">
+                <Badge className="bg-[#B486AB]/20 text-[#82667F] border-[#B486AB]/30 text-xs">
                   Correct!
                 </Badge>
               )}
@@ -316,8 +316,8 @@ export function AdviceScreen({ setCurrentScreen }: AdviceScreenProps) {
               <div
                 className={`max-w-[80%] p-3 rounded-2xl text-sm leading-relaxed break-words ${
                   message.isUser
-                    ? 'bg-white/20 text-white ml-4'
-                    : 'bg-white/5 text-white/90 mr-4'
+                    ? 'bg-[#DD9AC2]/30 text-[#82667F] ml-4'
+                    : 'bg-[#EACBD2]/40 text-[#82667F]/90 mr-4'
                 }`}
               >
                 {message.content}
@@ -335,7 +335,7 @@ export function AdviceScreen({ setCurrentScreen }: AdviceScreenProps) {
       </div>
 
       {/* Enhanced Input Area */}
-      <div className="p-4 border-t border-white/20">
+      <div className="p-4 border-t border-[#DFAEB4]/30">
         <div className="flex gap-2 items-end">
           <div className="flex-1 relative">
             <Textarea
@@ -344,7 +344,7 @@ export function AdviceScreen({ setCurrentScreen }: AdviceScreenProps) {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => handleKeyPress(e, sendMessage)}
               placeholder="Type your response... (Press Enter to send, Shift+Enter for new line)"
-              className="bg-white/10 border-white/20 text-white placeholder:text-white/50 rounded-xl resize-none min-h-[44px] max-h-[120px] text-sm leading-relaxed focus:bg-white/15 focus:border-white/30 transition-all duration-200 pr-12"
+              className="bg-[#EACBD2]/40 border-[#DFAEB4]/40 text-[#82667F] placeholder:text-[#82667F]/50 rounded-xl resize-none min-h-[44px] max-h-[120px] text-sm leading-relaxed focus:bg-[#EACBD2]/60 focus:border-[#B486AB]/40 transition-all duration-200 pr-12"
               rows={1}
               maxLength={500}
               style={{
@@ -358,7 +358,7 @@ export function AdviceScreen({ setCurrentScreen }: AdviceScreenProps) {
               }}
             />
             {/* Character count overlay */}
-            <div className="absolute bottom-2 right-2 text-xs text-white/40 pointer-events-none">
+            <div className="absolute bottom-2 right-2 text-xs text-[#82667F]/40 pointer-events-none">
               {input.length}/500
             </div>
           </div>
@@ -366,7 +366,7 @@ export function AdviceScreen({ setCurrentScreen }: AdviceScreenProps) {
             onClick={sendMessage}
             disabled={!input.trim() || chat.isTyping}
             size="sm"
-            className="bg-white/20 hover:bg-white/30 text-white border-0 rounded-xl px-4 py-3 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:scale-105 active:scale-95"
+            className="bg-[#B486AB]/80 hover:bg-[#82667F] text-white border-0 rounded-xl px-4 py-3 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:scale-105 active:scale-95"
           >
             <Send className="w-4 h-4" />
           </Button>
@@ -383,11 +383,11 @@ export function AdviceScreen({ setCurrentScreen }: AdviceScreenProps) {
           variant="ghost"
           size="sm"
           onClick={() => setCurrentScreen('journal')}
-          className="text-white/80 hover:text-white hover:bg-white/10 rounded-full p-2"
+          className="text-[#82667F] hover:text-[#B486AB] hover:bg-[#EACBD2]/50 rounded-full p-2 border-0"
         >
           <ArrowLeft className="w-5 h-5" />
         </Button>
-        <h2 className="text-white text-center">Chat with Advisors</h2>
+        <h2 className="text-[#82667F] text-center font-medium">Chat with Advisors</h2>
         <div className="w-9"></div>
       </div>
 
@@ -395,9 +395,9 @@ export function AdviceScreen({ setCurrentScreen }: AdviceScreenProps) {
       <motion.div 
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white/15 backdrop-blur-md rounded-2xl p-4 border border-white/20 shadow-lg mb-6"
+        className="bg-[#EACBD2]/60 backdrop-blur-md rounded-2xl p-4 border border-[#DFAEB4]/40 shadow-lg mb-6"
       >
-        <p className="text-white/90 text-sm text-center">
+        <p className="text-[#82667F] text-sm text-center">
           {!showResults 
             ? "Chat with both advisors and guess who's AI vs Human!"
             : "Results revealed! See how you did with your guesses."
@@ -456,7 +456,7 @@ export function AdviceScreen({ setCurrentScreen }: AdviceScreenProps) {
             >
               <Button
                 onClick={revealResults}
-                className="w-full bg-white/90 hover:bg-white text-[#B486AB] shadow-lg border-0 rounded-2xl py-6 transition-all duration-300 hover:scale-105"
+                className="w-full bg-[#B486AB] hover:bg-[#82667F] text-white shadow-lg border-0 rounded-2xl py-6 transition-all duration-300 hover:scale-105 font-medium"
               >
                 <span className="flex items-center gap-2">
                   <Sparkles className="w-5 h-5" />
@@ -471,7 +471,7 @@ export function AdviceScreen({ setCurrentScreen }: AdviceScreenProps) {
           <Button
             onClick={() => setCurrentScreen('quiz')}
             variant="outline"
-            className="bg-white/10 hover:bg-white/20 text-white border-white/30 rounded-2xl py-4 transition-all duration-200 hover:scale-105"
+            className="bg-[#DD9AC2]/20 hover:bg-[#DD9AC2]/40 text-[#82667F] border-[#B486AB]/30 hover:border-[#82667F]/40 rounded-2xl py-4 transition-all duration-200 hover:scale-105 font-medium"
           >
             <span className="flex items-center gap-2">
               <RotateCcw className="w-4 h-4" />
@@ -481,7 +481,7 @@ export function AdviceScreen({ setCurrentScreen }: AdviceScreenProps) {
           <Button
             onClick={() => setCurrentScreen('journal')}
             variant="outline"
-            className="bg-white/5 hover:bg-white/10 text-white border-white/20 rounded-2xl py-4 transition-all duration-200 hover:scale-105"
+            className="bg-[#EACBD2]/40 hover:bg-[#EACBD2]/60 text-[#82667F] border-[#DFAEB4]/40 hover:border-[#B486AB]/40 rounded-2xl py-4 transition-all duration-200 hover:scale-105 font-medium"
           >
             <span className="flex items-center gap-2">
               <BookOpen className="w-4 h-4" />
