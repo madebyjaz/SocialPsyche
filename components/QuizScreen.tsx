@@ -1,15 +1,17 @@
 import { Button } from './ui/button';
 import { Slider } from './ui/slider';
-import { ArrowLeft, ArrowRight, Users, Brain, Heart, Zap, Clock, Home, Eye, MessageCircle, Battery, Handshake, Lightbulb, Mountain, Shield, Gauge } from 'lucide-react';
-import { QuizAnswers, PersonalityType, PersonalityScores } from '../App';
+import { ArrowLeft, ArrowRight, Users, Brain, Heart, Zap, Eye, Lightbulb, Calendar, Target, Clock, Layers, Compass, Settings } from 'lucide-react';
+import { QuizAnswers, PersonalityType, MBTIScores, TypeAffinityScores } from '../App';
 
 interface QuizScreenProps {
   setCurrentScreen: (screen: string) => void;
   quizAnswers: QuizAnswers;
   setQuizAnswers: (answers: QuizAnswers) => void;
   setPersonalityType: (type: PersonalityType) => void;
-  setPersonalityScores: (scores: PersonalityScores) => void;
-  calculatePersonalityType: (answers: QuizAnswers) => { type: PersonalityType; scores: PersonalityScores };
+  setMBTIScores: (scores: MBTIScores) => void;
+  setTypeAffinityScores: (scores: TypeAffinityScores) => void;
+  calculateMBTIType: (answers: QuizAnswers) => { type: PersonalityType; scores: MBTIScores };
+  calculateTypeAffinityScores: (scores: MBTIScores) => TypeAffinityScores;
 }
 
 export function QuizScreen({ 
@@ -17,129 +19,178 @@ export function QuizScreen({
   quizAnswers, 
   setQuizAnswers, 
   setPersonalityType,
-  setPersonalityScores,
-  calculatePersonalityType 
+  setMBTIScores,
+  setTypeAffinityScores,
+  calculateMBTIType,
+  calculateTypeAffinityScores
 }: QuizScreenProps) {
   const questions = [
+    // E/I Questions (Extraversion vs Introversion)
     {
-      id: 'energy',
-      icon: Battery,
+      id: 'energySource',
+      category: 'E/I',
+      icon: Zap,
       emoji: '🔋',
       question: 'I get my energy from...',
       leftLabel: 'Quiet time alone',
-      rightLabel: 'Being around people'
+      rightLabel: 'Being around people',
+      dimension: 'Energy Source'
     },
     {
       id: 'socialSettings',
+      category: 'E/I',
       icon: Users,
       emoji: '👥',
       question: 'In social settings, I tend to...',
       leftLabel: 'Listen and observe',
-      rightLabel: 'Lead conversations'
-    },
-    {
-      id: 'decisions',
-      icon: Brain,
-      emoji: '🧠',
-      question: 'When making decisions, I...',
-      leftLabel: 'Think it through carefully',
-      rightLabel: 'Go with my gut feeling'
-    },
-    {
-      id: 'stress',
-      icon: Heart,
-      emoji: '💭',
-      question: 'When stressed, I prefer to...',
-      leftLabel: 'Process alone first',
-      rightLabel: 'Talk it out immediately'
-    },
-    {
-      id: 'communication',
-      icon: MessageCircle,
-      emoji: '💬',
-      question: 'I communicate best through...',
-      leftLabel: 'Writing and reflection',
-      rightLabel: 'Speaking and discussing'
-    },
-    {
-      id: 'gatherings',
-      icon: Users,
-      emoji: '🎉',
-      question: 'I prefer gatherings that are...',
-      leftLabel: 'Small and intimate',
-      rightLabel: 'Big and energetic'
-    },
-    {
-      id: 'weekend',
-      icon: Home,
-      emoji: '🏠',
-      question: 'My ideal weekend involves...',
-      leftLabel: 'Relaxing solo time',
-      rightLabel: 'Trying new activities with others'
-    },
-    {
-      id: 'newEnvironments',
-      icon: Eye,
-      emoji: '👁️',
-      question: 'In new environments, I usually...',
-      leftLabel: 'Observe before engaging',
-      rightLabel: 'Jump right in'
-    },
-    {
-      id: 'thoughtMotion',
-      icon: Zap,
-      emoji: '⚡',
-      question: 'I often find myself...',
-      leftLabel: 'Deep in thought',
-      rightLabel: 'Constantly in motion'
+      rightLabel: 'Lead conversations',
+      dimension: 'Social Approach'
     },
     {
       id: 'recharge',
-      icon: Battery,
-      emoji: '🔄',
-      question: 'I recharge by...',
-      leftLabel: 'Spending time alone',
-      rightLabel: 'Being out with friends'
+      category: 'E/I',
+      icon: Heart,
+      emoji: '💆',
+      question: 'When I need to recharge, I...',
+      leftLabel: 'Spend time alone',
+      rightLabel: 'Socialize with others',
+      dimension: 'Recharge Style'
     },
     {
-      id: 'meeting',
-      icon: Handshake,
-      emoji: '🤝',
-      question: 'When meeting someone new, I...',
-      leftLabel: 'Wait for them to approach',
-      rightLabel: 'Start the conversation'
+      id: 'groupSize',
+      category: 'E/I',
+      icon: Users,
+      emoji: '🎉',
+      question: 'I prefer...',
+      leftLabel: 'Small, intimate groups',
+      rightLabel: 'Large, lively gatherings',
+      dimension: 'Group Preference'
+    },
+    
+    // S/N Questions (Sensing vs iNtuition)
+    {
+      id: 'information',
+      category: 'S/N',
+      icon: Eye,
+      emoji: '👁️',
+      question: 'I prefer information that is...',
+      leftLabel: 'Concrete and factual',
+      rightLabel: 'Abstract and theoretical',
+      dimension: 'Information Style'
     },
     {
-      id: 'reflection',
+      id: 'future',
+      category: 'S/N',
+      icon: Compass,
+      emoji: '🔮',
+      question: 'I am more interested in...',
+      leftLabel: 'Present realities',
+      rightLabel: 'Future possibilities',
+      dimension: 'Time Focus'
+    },
+    {
+      id: 'details',
+      category: 'S/N',
+      icon: Target,
+      emoji: '🔍',
+      question: 'I tend to focus on...',
+      leftLabel: 'Details and specifics',
+      rightLabel: 'Big picture and patterns',
+      dimension: 'Focus Style'
+    },
+    {
+      id: 'possibilities',
+      category: 'S/N',
       icon: Lightbulb,
       emoji: '💡',
-      question: 'I tend to reflect on...',
-      leftLabel: 'My inner world',
-      rightLabel: 'My external experiences'
+      question: 'I am energized by...',
+      leftLabel: 'Proven methods',
+      rightLabel: 'New possibilities',
+      dimension: 'Innovation Style'
+    },
+    
+    // T/F Questions (Thinking vs Feeling)
+    {
+      id: 'decisions',
+      category: 'T/F',
+      icon: Brain,
+      emoji: '🧠',
+      question: 'When making decisions, I rely more on...',
+      leftLabel: 'Logic and analysis',
+      rightLabel: 'Values and feelings',
+      dimension: 'Decision Making'
     },
     {
-      id: 'activities',
-      icon: Mountain,
-      emoji: '🎯',
-      question: 'I enjoy activities that are...',
-      leftLabel: 'Familiar and calming',
-      rightLabel: 'Spontaneous and exciting'
+      id: 'criticism',
+      category: 'T/F',
+      icon: Settings,
+      emoji: '⚖️',
+      question: 'I am more comfortable with...',
+      leftLabel: 'Constructive criticism',
+      rightLabel: 'Supportive encouragement',
+      dimension: 'Feedback Style'
     },
     {
-      id: 'avoidance',
-      icon: Shield,
-      emoji: '🛡️',
-      question: 'I avoid social settings because...',
-      leftLabel: 'I feel anxious or awkward',
-      rightLabel: 'I never avoid them'
+      id: 'values',
+      category: 'T/F',
+      icon: Heart,
+      emoji: '💖',
+      question: 'I prioritize...',
+      leftLabel: 'Objective fairness',
+      rightLabel: 'Personal values',
+      dimension: 'Priority System'
     },
     {
-      id: 'actions',
-      icon: Gauge,
-      emoji: '⏱️',
-      question: 'I act...',
-      leftLabel: 'Cautiously and deliberately',
-      rightLabel: 'Impulsively and fast-paced'
+      id: 'conflict',
+      category: 'T/F',
+      icon: Users,
+      emoji: '🤝',
+      question: 'In conflicts, I focus on...',
+      leftLabel: 'Finding the truth',
+      rightLabel: 'Maintaining harmony',
+      dimension: 'Conflict Style'
+    },
+    
+    // J/P Questions (Judging vs Perceiving)
+    {
+      id: 'planning',
+      category: 'J/P',
+      icon: Calendar,
+      emoji: '📅',
+      question: 'I prefer to...',
+      leftLabel: 'Plan things in advance',
+      rightLabel: 'Keep options open',
+      dimension: 'Planning Style'
+    },
+    {
+      id: 'deadlines',
+      category: 'J/P',
+      icon: Clock,
+      emoji: '⏰',
+      question: 'With deadlines, I tend to...',
+      leftLabel: 'Start early and finish ahead',
+      rightLabel: 'Work best under pressure',
+      dimension: 'Time Management'
+    },
+    {
+      id: 'structure',
+      category: 'J/P',
+      icon: Layers,
+      emoji: '🏗️',
+      question: 'I work best with...',
+      leftLabel: 'Clear structure and routine',
+      rightLabel: 'Flexibility and spontaneity',
+      dimension: 'Work Style'
+    },
+    {
+      id: 'flexibility',
+      category: 'J/P',
+      icon: Compass,
+      emoji: '🌊',
+      question: 'I am more comfortable with...',
+      leftLabel: 'Decided plans',
+      rightLabel: 'Adaptable approaches',
+      dimension: 'Adaptability'
     }
   ];
 
@@ -151,14 +202,28 @@ export function QuizScreen({
   };
 
   const handleComplete = () => {
-    const { type, scores } = calculatePersonalityType(quizAnswers);
+    const { type, scores } = calculateMBTIType(quizAnswers);
+    const affinityScores = calculateTypeAffinityScores(scores);
+    
     setPersonalityType(type);
-    setPersonalityScores(scores);
+    setMBTIScores(scores);
+    setTypeAffinityScores(affinityScores);
     setCurrentScreen('results');
   };
 
   const completedQuestions = Object.values(quizAnswers).filter(val => val !== 50).length;
   const progress = (completedQuestions / questions.length) * 100;
+
+  // Get category colors
+  const getCategoryColor = (category: string) => {
+    switch (category) {
+      case 'E/I': return 'bg-[#B486AB]/20';
+      case 'S/N': return 'bg-[#DD9AC2]/20';
+      case 'T/F': return 'bg-[#DFAEB4]/20';
+      case 'J/P': return 'bg-[#EACBD2]/20';
+      default: return 'bg-[#EACBD2]/20';
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col px-6 py-8">
@@ -168,23 +233,23 @@ export function QuizScreen({
           variant="ghost"
           size="sm"
           onClick={() => setCurrentScreen('landing')}
-          className="text-white/80 hover:text-white hover:bg-white/10 rounded-full p-2"
+          className="text-[#82667F] hover:text-[#B486AB] hover:bg-[#EACBD2]/50 rounded-full p-2 border-0"
         >
           <ArrowLeft className="w-5 h-5" />
         </Button>
-        <h2 className="text-white text-center">Personality Discovery</h2>
+        <h2 className="text-[#82667F] text-center font-medium">MBTI Assessment</h2>
         <div className="w-9"></div>
       </div>
 
       {/* Progress */}
       <div className="mb-8">
-        <div className="flex justify-between text-sm text-white/70 mb-2">
+        <div className="flex justify-between text-sm text-[#82667F]/80 mb-2">
           <span>Progress</span>
           <span>{completedQuestions} of {questions.length}</span>
         </div>
-        <div className="w-full bg-white/20 rounded-full h-2">
+        <div className="w-full bg-[#DFAEB4]/30 rounded-full h-3">
           <div 
-            className="bg-white/80 h-2 rounded-full transition-all duration-500"
+            className="bg-[#82667F] h-3 rounded-full transition-all duration-500 shadow-sm"
             style={{ width: `${progress}%` }}
           ></div>
         </div>
@@ -195,29 +260,36 @@ export function QuizScreen({
         {questions.map((question, index) => {
           const IconComponent = question.icon;
           return (
-            <div key={question.id} className="bg-white/15 backdrop-blur-md rounded-2xl p-5 border border-white/20 shadow-lg">
+            <div key={question.id} className="bg-[#EACBD2]/60 backdrop-blur-md rounded-2xl p-5 border border-[#DFAEB4]/40 shadow-lg hover:shadow-xl transition-all duration-300">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                <div className={`w-10 h-10 ${getCategoryColor(question.category)} rounded-full flex items-center justify-center`}>
                   <span className="text-lg">{question.emoji}</span>
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-xs text-white/60">#{index + 1}</span>
-                    <h3 className="text-white text-sm">{question.question}</h3>
+                    <span className="text-xs text-[#82667F]/70 font-medium">
+                      #{index + 1} • {question.category}
+                    </span>
+                    <span className="text-xs text-[#82667F]/50">
+                      {question.dimension}
+                    </span>
                   </div>
+                  <h3 className="text-[#82667F] text-sm font-medium">{question.question}</h3>
                 </div>
               </div>
               
               <div className="space-y-4">
-                <Slider
-                  value={[quizAnswers[question.id as keyof QuizAnswers]]}
-                  onValueChange={(value) => updateAnswer(question.id as keyof QuizAnswers, value[0])}
-                  max={100}
-                  step={1}
-                  className="w-full"
-                />
+                <div className="social-slider">
+                  <Slider
+                    value={[quizAnswers[question.id as keyof QuizAnswers]]}
+                    onValueChange={(value) => updateAnswer(question.id as keyof QuizAnswers, value[0])}
+                    max={100}
+                    step={1}
+                    className="w-full [&>[role=slider]]:bg-[#82667F] [&>[role=slider]]:border-2 [&>[role=slider]]:border-white [&>[role=slider]]:shadow-lg [&>[role=slider]]:hover:bg-[#DD9AC2] [&>[role=slider]]:hover:scale-110 [&>[role=slider]]:focus:bg-[#B486AB] [&>[role=slider]]:transition-all [&>[role=slider]]:duration-200 [&>.slider-track]:bg-[#DFAEB4]/30 [&>.slider-range]:bg-[#82667F]"
+                  />
+                </div>
                 
-                <div className="flex justify-between text-xs text-white/70">
+                <div className="flex justify-between text-xs text-[#82667F]/80 font-medium">
                   <span>{question.leftLabel}</span>
                   <span>{question.rightLabel}</span>
                 </div>
@@ -232,16 +304,16 @@ export function QuizScreen({
         <Button
           onClick={handleComplete}
           disabled={completedQuestions < questions.length}
-          className="w-full bg-white/90 hover:bg-white text-[#B486AB] shadow-lg border-0 rounded-2xl py-6 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"
+          className="w-full bg-[#B486AB] hover:bg-[#82667F] text-white shadow-lg border-0 rounded-2xl py-6 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:hover:scale-100 disabled:bg-[#DFAEB4]/60 disabled:text-[#82667F]/70"
         >
-          <span className="flex items-center gap-2">
-            Discover My Personality
+          <span className="flex items-center gap-2 font-medium">
+            Discover My MBTI Type
             <ArrowRight className="w-5 h-5" />
           </span>
         </Button>
         {completedQuestions < questions.length && (
-          <p className="text-center text-white/60 text-sm mt-3">
-            Answer all questions to see your results
+          <p className="text-center text-[#82667F]/70 text-sm mt-3">
+            Answer all questions to discover your MBTI type
           </p>
         )}
       </div>
