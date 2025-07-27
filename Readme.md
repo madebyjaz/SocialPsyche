@@ -69,20 +69,27 @@ SocialPsyche/
 ```bash
 git clone https://github.com/madebyjaz/SocialPsyche
 cd SocialPsyche
+```
 
 ### 2. Install frontend dependencies
+```bash
 npm install
-
+```
 
 ### 3. Install backend dependencies
+```bash
 pip install fastapi uvicorn python-dotenv openai
+```
 
 ### 4. Run the app locally
 
 #### Start the Backend
+```bash
 cd backend
 uvicorn main:app --reload
+```
 
 #### Start the Frontend Open a new terminal window:
+```bash
 npm run dev
-
+```
