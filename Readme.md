@@ -4,7 +4,7 @@
 
 ## 💡 Why SocialPsyche?
 
-Many people struggle with social anxiety, confidence, or understanding their unique communication style. SocialPsyche creates a safe and supportive space for self-reflection through:
+Many people struggle with social anxiety, confidence, or understanding their unique communication style. **SocialPsyche** creates a safe and supportive space for self-reflection through:
 
 - 🧭 A quiz-based MBTI-inspired personality assessment
 - 🗨️ Two chat advisors — one more human, the other more analytical
@@ -64,24 +64,24 @@ SocialPsyche/
 
 ## 🛠️ Installation
 
-### 1. Clone the repository
+### 1. Clone the repository ✅
 
 ```bash
 git clone https://github.com/madebyjaz/SocialPsyche
 cd SocialPsyche
 ```
 
-### 2. Install frontend dependencies
+### 2. Install frontend dependencies ✅
 ```bash
 npm install
 ```
 
-### 3. Install backend dependencies
+### 3. Install backend dependencies ✅
 ```bash
 pip install fastapi uvicorn python-dotenv openai
 ```
 
-### 4. Run the app locally
+### 4. Run the app locally ✅
 
 #### Start the Backend
 ```bash
@@ -89,7 +89,21 @@ cd backend
 uvicorn main:app --reload
 ```
 
-#### Start the Frontend Open a new terminal window:
+#### Start the Frontend 
+Open a new terminal window: 💻
 ```bash
 npm run dev
 ```
+---
+## Built For 📈
+This project was created during the [🧠 AI vs H.I. Global Hackathon by the CS Girlies](hhttps://csgirlies.devpost.com/) under the **Make Anything, But Make it YOU ✨** track.
+
+Primarily built solo from ideation to deployment — with design, development, and copywriting completed independently during the 48-hour sprint. The UI was prototyped using Figma Dev Mode, with custom code integrated to add a more personal touch.
+
+---
+## 🛣️ Future Features
+
+- [ ] User authentication and saved journal history  
+- [ ] Mood tracking with sentiment analysis  
+- [ ] Expanded quiz types (Big Five, Enneagram)  
+- [ ] Custom AI advisor personalities (choose tone)  
