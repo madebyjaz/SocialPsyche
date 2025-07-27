@@ -13,21 +13,21 @@ Many people struggle with social anxiety, confidence, or understanding their uni
 ---
 
 
-SocialPsyche/
-├── backend/
-│   └── main.py                # FastAPI backend with session + chat logic
-├── components/
-│   ├── AdviceScreen.tsx
-│   ├── LandingScreen.tsx
-│   ├── ProgressScreen.tsx
-│   ├── ResultsScreen.tsx
-│   ├── QuizScreen.tsx
-│   └── ui/                    # Reusable UI components (slider, switch, etc.)
-├── styles/
-│   └── globals.css
-├── .env                       # Environment variables (e.g., Hugging Face API key)
-├── App.tsx                    # React root component
-├── Readme.md
++   backend/
++ 	main.py                # FastAPI backend with session + chat logic
++   components/
++ 	AdviceScreen.tsx
++ 	LandingScreen.tsx
++ 	ProgressScreen.tsx
++ 	ResultsScreen.tsx
++ 	QuizScreen.tsx
++ 	ui/                    # Reusable UI components (slider, switch, etc.)
++   styles/
++ 	globals.css
++   .env                     # Environment variables (e.g., Hugging Face API key)
++   App.tsx                  # React root component
++   Readme.md
+
 
 
 ## 🔧 Tech Stack
@@ -64,7 +64,7 @@ SocialPsyche/
 
 ```bash
 git clone https://github.com/madebyjaz/SocialPsyche
-cd socialpsyche
+cd SocialPsyche
 
 ### 2. Install frontend dependencies
 npm install
