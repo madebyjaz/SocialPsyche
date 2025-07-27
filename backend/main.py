@@ -23,10 +23,13 @@ app.add_middleware(
 )
 
 # Initialize OpenAI client with Hugging Face
+api_key = os.environ.get("HF_TOKEN")  # Make sure to set HF_TOKEN in your environment
+
 client = OpenAI(
     base_url="https://router.huggingface.co/v1",
-    api_key=os.environ.get("HF_TOKEN", "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"),
+    api_key=api_key
 )
+
 
 # Data Models
 class MBTIScores(BaseModel):
