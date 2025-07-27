@@ -12,23 +12,27 @@ Many people struggle with social anxiety, confidence, or understanding their uni
 
 ---
 
+## 📁 Project Structure
 
-+   backend/
-+ 	main.py                # FastAPI backend with session + chat logic
-+   components/
-+ 	AdviceScreen.tsx
-+ 	LandingScreen.tsx
-+ 	ProgressScreen.tsx
-+ 	ResultsScreen.tsx
-+ 	QuizScreen.tsx
-+ 	ui/                    # Reusable UI components (slider, switch, etc.)
-+   styles/
-+ 	globals.css
-+   .env                     # Environment variables (e.g., Hugging Face API key)
-+   App.tsx                  # React root component
-+   Readme.md
+```
+SocialPsyche/
+├── backend/
+│   └── main.py               # FastAPI backend with session + chat logic
+├── components/
+│   ├── AdviceScreen.tsx
+│   ├── LandingScreen.tsx
+│   ├── ProgressScreen.tsx
+│   ├── QuizScreen.tsx
+│   └── ResultsScreen.tsx
+├── ui/                       # Reusable UI components (slider, switch, etc.)
+├── styles/
+│   └── globals.css
+├── .env                      # Environment variables (e.g., Hugging Face API key)
+├── App.tsx                   # React root component
+└── README.md
+```
 
-
+---
 
 ## 🔧 Tech Stack
 
