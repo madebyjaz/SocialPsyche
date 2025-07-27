@@ -98,7 +98,7 @@ npm run dev
 ## Built For 📈
 This project was created during the [🧠 AI vs H.I. Global Hackathon by the CS Girlies](hhttps://csgirlies.devpost.com/) under the **Make Anything, But Make it YOU ✨** track.
 
-Primarily built solo from ideation to deployment — with design, development, and copywriting completed independently during the 48-hour sprint. The UI was prototyped using Figma Dev Mode, with custom code integrated to add a more personal touch.
+Primarily built solo from ideation to deployment, with design, development, and copywriting completed independently during the 48-hour sprint. The UI was prototyped using Figma Dev Mode, with custom code integrated to add a more personal touch.
 
 ---
 ## 🛣️ Future Features
