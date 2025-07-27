@@ -190,7 +190,7 @@ export function ResultsScreen({ setCurrentScreen, personalityType, mbtiScores, t
       .slice(0, 3);
   };
 
-  // Enhanced 4-Axis Bar Chart with fixes
+  // Enhanced 4-Axis Bar Chart with fixes - now animates from left
   const EnhancedCognitivePreferencesChart = () => {
     const dimensions = [
       {
@@ -280,13 +280,13 @@ export function ResultsScreen({ setCurrentScreen, personalityType, mbtiScores, t
                   <div className="absolute left-1/4 top-1 bottom-1 w-px bg-[#82667F]/20"></div>
                   <div className="absolute left-3/4 top-1 bottom-1 w-px bg-[#82667F]/20"></div>
                   
-                  {/* Progress fill with correct direction */}
+                  {/* Progress fill - now always animates from left */}
                   <div 
                     className="h-full rounded-lg transition-all duration-500 relative"
                     style={{
                       backgroundColor: dim.color,
                       width: `${percentage}%`,
-                      marginLeft: strongerSide === 'left' ? `${100 - percentage}%` : '0',
+                      marginLeft: '0', // Always start from left
                       opacity: isBalanced ? 0.6 : 1
                     }}
                   />

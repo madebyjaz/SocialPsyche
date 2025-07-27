@@ -307,7 +307,7 @@ export function QuizScreen({
           className="w-full bg-[#B486AB] hover:bg-[#82667F] text-white shadow-lg border-0 rounded-2xl py-6 transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:hover:scale-100 disabled:bg-[#DFAEB4]/60 disabled:text-[#82667F]/70"
         >
           <span className="flex items-center gap-2 font-medium">
-            Discover My MBTI Type
+            Discover My MBTI Type✨
             <ArrowRight className="w-5 h-5" />
           </span>
         </Button>

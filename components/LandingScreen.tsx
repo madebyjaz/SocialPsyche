@@ -21,6 +21,12 @@ export function LandingScreen({ setCurrentScreen }: LandingScreenProps) {
       answer: "To figure out if you're an introvert or extrovert, consider what energizes you. Introverts typically recharge by spending time alone, while extroverts gain energy from social interaction. Observe your preferences in social situations and how you feel afterward. Do you prefer quiet, solitary activities or lively gatherings? Do you feel drained or energized after spending time with others? Answering these questions can help you understand your orientation."
     },
     {
+      id: "what-does-it-mean",
+      icon: <Brain className="w-5 h-5" />,
+      question: "What is the MBTI?",
+      answer: "The Myers-Briggs Type Indicator (MBTI) organizes personality into 16 distinct types, based on Carl Jung‘s theory of psychological type.  We all exhibit different “preferences” for ways of being and interacting with others in the world. The idea behind personality type is that characteristics that appear uninterpretable or even odd, make sense when we consider these behaviors through the lens of personality. The MBTI is a tool that helps people understand their own personality preferences and those of others, facilitating better communication and collaboration."
+    },
+    {
       id: "ambivert",
       icon: <Battery className="w-5 h-5" />,
       question: "Can someone be both? (What is an ambivert?)",
